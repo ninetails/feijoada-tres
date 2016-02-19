@@ -2,7 +2,7 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     singleRun: true,
 
@@ -35,6 +35,9 @@ module.exports = function(config) {
       },
 
       module: {
+        preLoaders: [
+          { test: /\.jsx?/, loader: 'eslint', exclude: /node_modules/, include: [ 'index.js', 'tests.webpack.js', /app/ ] }
+        ],
         loaders: [
           { test: /\.jsx?/, loader: 'babel', query: { presets: [ 'es2015', 'react', 'stage-0' ] }, exclude: /node_modules/ }
         ]
@@ -50,6 +53,10 @@ module.exports = function(config) {
 
       babel: {
         presets: [ 'es2015', 'react', 'stage-0' ]
+      },
+
+      eslint: {
+        failOnError: true
       },
 
       isparta: {

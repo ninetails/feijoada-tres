@@ -1,0 +1,19 @@
+---
+parser: babel-eslint
+
+env:
+  browser: true
+  node: true
+
+extends:
+  - standard
+  - standard-react
+
+plugins:
+  - flow-vars
+
+rules:
+  semi: [2, 'always']
+  jsx-quotes: [2, 'prefer-double']
+  flow-vars/define-flow-type: 1
+  flow-vars/use-flow-type: 1

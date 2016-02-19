@@ -7,10 +7,10 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 export default (
   (env, common) =>
-    env === 'production' ?
+    env === 'production'
 
     // production only
-    {
+    ? {
       ...common,
 
       devtool: 'source-map',
@@ -31,10 +31,8 @@ export default (
       ]
     }
 
-    :
-
     // development only
-    {
+    : {
       ...common,
 
       debug: true,
@@ -47,10 +45,21 @@ export default (
         'webpack/hot/dev-server'
       ],
 
+      module: {
+        ...common.module,
+        preLoaders: [
+          { test: /\.jsx?/, loader: 'eslint', exclude: /node_modules/, include: ['index.js', /app/] }
+        ]
+      },
+
       plugins: [
         ...common.plugins,
         new HtmlWebpackPlugin()
       ],
+
+      eslint: {
+        failOnError: true
+      },
 
       devServer: {
         contentBase: path.resolve(__dirname, pkgConfig.buildDir),
