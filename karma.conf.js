@@ -15,7 +15,7 @@ module.exports = function (config) {
     preprocessors: {
       './app/**/*.js': [ 'webpack', 'sourcemap', 'coverage' ],
       './test/**/*.js': [ 'webpack', 'sourcemap' ],
-      './tests.js': [ 'webpack', 'sourcemap' ]
+      './tests.webpack.js': [ 'webpack', 'sourcemap' ]
     },
 
     reporters: [ 'spec', 'coverage' ],
@@ -28,25 +28,29 @@ module.exports = function (config) {
         extensions: ['', '.js', '.jsx'],
 
         alias: {
-          src: path.resolve(__dirname, 'app'),
+          app: path.join(__dirname, 'app'),
           components: 'app/components',
-          libs: 'app/libs'
+          reducers: 'app/reducers',
+          actions: 'app/actions',
+          constants: 'app/constants',
+          utils: 'app/utils',
+          lib: 'app/lib'
         }
       },
 
       module: {
         preLoaders: [
-          { test: /\.jsx?/, loader: 'eslint', exclude: /node_modules/, include: [ 'index.js', 'tests.webpack.js', /app/ ] }
+          { test: /\.jsx?$/, loader: 'eslint-loader', exclude: /node_modules/ }
         ],
         loaders: [
-          { test: /\.jsx?/, loader: 'babel', query: { presets: [ 'es2015', 'react', 'stage-0' ] }, exclude: /node_modules/ }
+          { test: /\.jsx?$/, loader: 'babel', query: { presets: [ 'es2015', 'react', 'stage-0' ] }, exclude: /node_modules/ }
         ]
       },
 
       plugins: [
         new webpack.DefinePlugin({
-          'process.env': { 'NODE_ENV': JSON.stringify(process.env.NODE_ENV) },
-          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV)
+          'process.env': { 'NODE_ENV': JSON.stringify('test') },
+          'process.env.NODE_ENV': JSON.stringify('test')
         }),
         new HtmlWebpackPlugin()
       ],

@@ -48,7 +48,7 @@ export default (
       module: {
         ...common.module,
         preLoaders: [
-          { test: /\.jsx?/, loader: 'eslint', exclude: /node_modules/, include: ['index.js', /app/] }
+          { test: /\.jsx?$/, loader: 'eslint-loader', exclude: /node_modules/ }
         ]
       },
 
@@ -74,7 +74,7 @@ export default (
 
   // config for both development and production
   {
-    entry: './index.js',
+    entry: './app',
 
     output: {
       path: path.resolve(__dirname, pkgConfig.buildDir),
@@ -88,16 +88,20 @@ export default (
       extensions: ['', '.js', '.jsx', 'styl'],
 
       alias: {
-        app: path.resolve(__dirname, 'app'),
+        app: path.join(__dirname, 'app'),
         components: 'app/components',
-        libs: 'app/libs'
+        reducers: 'app/reducers',
+        actions: 'app/actions',
+        constants: 'app/constants',
+        utils: 'app/utils',
+        lib: 'app/lib'
       }
     },
 
     module: {
       loaders: [
-        { test: /\.jsx?/, loader: 'babel', query: { presets: [ 'es2015', 'react', 'stage-0' ] }, exclude: /node_modules/, include: /app/ },
-        { test: /\.styl/, loader: 'style!css?sourceMap&minimize!postcss!stylus' },
+        { test: /\.jsx?$/, loader: 'babel', query: { presets: [ 'es2015', 'react', 'stage-0' ] }, exclude: /node_modules/ },
+        { test: /\.styl$/, loader: 'style!css?sourceMap&minimize!postcss!stylus', exclude: /node_modules/ },
         { test: /\.jpe?g$|\.gif$|\.png$|\.ico|\.svg$|\.woff$|\.ttf$/, loader: 'file?name=[path][name].[ext]' }
       ]
     },
