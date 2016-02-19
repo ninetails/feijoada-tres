@@ -1,7 +1,8 @@
 {
-  "name": "learning-karma-0003",
+  "name": "feijoada-tres",
   "version": "0.0.1",
   "description": "Learning Karma with ES6",
+  "repository": "https://github.com/ninetails/feijoada-tres",
   "main": "index.js",
   "scripts": {
     "pretest": "rm -rf coverage",
